@@ -16,20 +16,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button aboutMeBtn = (Button) findViewById(R.id.AboutMeButton);
-        aboutMeBtn.setOnClickListener(view -> {
-            // Display toast about personal info
-            Toast.makeText(getApplicationContext(), "Zoe Li: zoli@gmail.com", Toast.LENGTH_LONG).show();
-        });
+        aboutMeBtn.setOnClickListener(view -> openAboutMe());
 
         // Click Clicky Activity
         Button ClickyBtn = (Button) findViewById(R.id.ClickyButton);
-        ClickyBtn.setOnClickListener(view -> {
-            openClickyClicky();
-        });
+        ClickyBtn.setOnClickListener(view -> openClickyClicky());
+
+        Button LinkControllerBtn = (Button) findViewById(R.id.LinkControllerButton);
+        LinkControllerBtn.setOnClickListener(view -> openLinkController());
     }
 
     public void openClickyClicky() {
         Intent intent = new Intent(this, ClickyActivity.class);
+        startActivity(intent);
+    }
+
+    public void openAboutMe() {
+        Intent intent = new Intent(this, AboutMeActivity.class);
+        startActivity(intent);
+    }
+
+    public void openLinkController() {
+        Intent intent = new Intent(this, LinkControllerActivity.class);
         startActivity(intent);
     }
 }
