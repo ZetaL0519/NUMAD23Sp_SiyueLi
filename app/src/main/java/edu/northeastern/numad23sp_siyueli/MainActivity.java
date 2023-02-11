@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button LinkControllerBtn = (Button) findViewById(R.id.LinkControllerButton);
         LinkControllerBtn.setOnClickListener(view -> openLinkController());
+
+        Button FindPrimeNumberBtn = (Button) findViewById(R.id.FindPrimeNumberButton);
+        FindPrimeNumberBtn.setOnClickListener(view -> openFindPrimeNumber());
     }
 
     public void openClickyClicky() {
@@ -40,4 +43,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LinkControllerActivity.class);
         startActivity(intent);
     }
+
+    public void openFindPrimeNumber() {
+        Intent intent = new Intent(this, FindPrimeNumberActivity.class);
+        startActivity(intent);
+    }
+
 }
