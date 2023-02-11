@@ -1,97 +1,60 @@
 package edu.northeastern.numad23sp_siyueli;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 public class FindPrimeNumberActivity extends AppCompatActivity {
-    private volatile boolean isSearching = false;
-    private volatile int currentNumber = 3;
-    private int latestPrimeFound = 0;
 
-    private Button findPrimesButton;
-    private Button terminateSearchButton;
-    private CheckBox pacifierSwitch;
-    private TextView currentNumberTextView;
+    private static final String TAG = "FindPrimeActivity";
+
+    private TextView currentNumTextView;
     private TextView latestPrimeTextView;
     private Handler textHandler = new Handler();
+    private Button findPrimeButton;
+    private Button terminateSearchButton;
+    private boolean endSearch = true;
+    private int currentNum = 3;
 
-    protected void OnCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prime_number);
+        currentNumTextView = (TextView) findViewById(R.id.current_num_text);
+        latestPrimeTextView = (TextView) findViewById(R.id.latest_prime_text);
 
-        findPrimesButton = findViewById(R.id.FindPrimeNumberButton);
-        terminateSearchButton = findViewById(R.id.TerminateButton);
-        pacifierSwitch = findViewById(R.id.pacifierSwitch);
-        currentNumberTextView = findViewById(R.id.currentNumberTextView);
-        latestPrimeTextView = findViewById(R.id.latestPrimeTextView);
+        findPrimeButton = (Button) findViewById(R.id.start_search_button);
+        terminateSearchButton = (Button) findViewById(R.id.terminate_search_button);
 
-        findPrimesButton.setOnClickListener(new View.OnClickListener() {
+        findPrimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if (!isSearching) {
-                    currentNumber = 3;
-                    currentNumberTextView.setText(currentNumber);
-                    latestPrimeTextView.setText("");
-                    Thread searchThread = new Thread(new PrimeNumberSearchRunnable());
-                    searchThread.start();
-                }
+            public void onClick(View v) {
+                endSearch = false;
+                currentNumTextView.setText(currentNum);
+                latestPrimeTextView.setText("");
+                ChildThread childThread = new ChildThread();
+                new Thread(childThread).start();
             }
         });
 
         terminateSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if (isSearching) {
-                    isSearching = false;
-                }
+            public void onClick(View v) {
+                endSearch = true;
             }
         });
-
-        if (savedInstanceState != null) {
-            currentNumber = savedInstanceState.getInt("currentNum");
-            latestPrimeFound = savedInstanceState.getInt("latestPrime");
-            pacifierSwitch.setChecked(savedInstanceState.getBoolean("pacifierSwitch"));
-        }
-    }
-
-    private class PrimeNumberSearchRunnable implements Runnable {
-
-
-        @Override
-        public void run() {
-            while(isSearching) {
-                textHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isPrime(currentNumber)) {
-                            latestPrimeFound = currentNumber;
-                            latestPrimeTextView.setText(latestPrimeFound);
-                        } else {
-                            currentNumberTextView.setText(Integer.toString(currentNumber));
-                        }
-                    }
-                });
-                currentNumber++;
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     @Override
     public void onBackPressed() {
-        if (isSearching) {
+        if (!endSearch) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Do you want to terminate the search?");
             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -131,5 +94,31 @@ public class FindPrimeNumberActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    protected class ChildThread implements Runnable {
+        int originalNum = 3;
+        @Override
+        public void run() {
+            while (!endSearch) {
+                textHandler.post(new Runnable() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void run() {
+                        if (isPrime(originalNum)) {
+                            latestPrimeTextView.setText(Integer.toString(originalNum));
+                        } else {
+                            currentNumTextView.setText(Integer.toString(originalNum));
+                        }
+                    }
+                });
+                originalNum++;
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
