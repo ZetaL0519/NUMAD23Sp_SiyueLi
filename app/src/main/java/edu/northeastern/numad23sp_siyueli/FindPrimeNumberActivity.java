@@ -21,7 +21,6 @@ public class FindPrimeNumberActivity extends AppCompatActivity {
     private Button findPrimeButton;
     private Button terminateSearchButton;
     private boolean endSearch = true;
-    private int currentNum = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class FindPrimeNumberActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 endSearch = false;
-                currentNumTextView.setText(currentNum);
+                currentNumTextView.setText("3");
                 latestPrimeTextView.setText("");
                 ChildThread childThread = new ChildThread();
                 new Thread(childThread).start();
@@ -102,7 +101,6 @@ public class FindPrimeNumberActivity extends AppCompatActivity {
         public void run() {
             while (!endSearch) {
                 textHandler.post(new Runnable() {
-                    @SuppressLint("SetTextI18n")
                     @Override
                     public void run() {
                         if (isPrime(originalNum)) {
