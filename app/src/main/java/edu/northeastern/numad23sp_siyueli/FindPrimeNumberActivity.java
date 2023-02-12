@@ -1,5 +1,6 @@
 package edu.northeastern.numad23sp_siyueli;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -13,14 +14,13 @@ import android.widget.TextView;
 
 public class FindPrimeNumberActivity extends AppCompatActivity {
 
-    private static final String TAG = "FindPrimeActivity";
-
     private TextView currentNumTextView;
     private TextView latestPrimeTextView;
     private Handler textHandler = new Handler();
     private Button findPrimeButton;
     private Button terminateSearchButton;
     private boolean endSearch = true;
+    private int originalNum = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class FindPrimeNumberActivity extends AppCompatActivity {
             }
         });
 
+
         terminateSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +51,7 @@ public class FindPrimeNumberActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     public void onBackPressed() {
@@ -96,7 +98,6 @@ public class FindPrimeNumberActivity extends AppCompatActivity {
     }
 
     protected class ChildThread implements Runnable {
-        int originalNum = 3;
         @Override
         public void run() {
             while (!endSearch) {
