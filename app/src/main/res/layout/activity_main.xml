@@ -12,9 +12,10 @@
         android:text="Hello World!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.409" />
+        app:layout_constraintVertical_bias="0.036" />
 
     <Button
         android:id="@+id/AboutMeButton"
@@ -23,10 +24,10 @@
         android:text="About Me"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintHorizontal_bias="0.441"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.489" />
+        app:layout_constraintVertical_bias="0.121" />
 
     <Button
         android:id="@+id/ClickyButton"
@@ -35,10 +36,10 @@
         android:text="Clicky Clicky"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/AboutMeButton"
-        app:layout_constraintVertical_bias="0.202" />
+        app:layout_constraintVertical_bias="0.105" />
 
     <Button
         android:id="@+id/LinkControllerButton"
@@ -49,7 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ClickyButton"
-        app:layout_constraintVertical_bias="0.231" />
+        app:layout_constraintVertical_bias="0.153" />
 
     <Button
         android:id="@+id/FindPrimeNumberButton"
@@ -60,6 +61,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LinkControllerButton"
-        app:layout_constraintVertical_bias="0.474" />
+        app:layout_constraintVertical_bias="0.184" />
+
+    <Button
+        android:id="@+id/LocationSensingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A7 Location Confirmed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FindPrimeNumberButton"
+        app:layout_constraintVertical_bias="0.366" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

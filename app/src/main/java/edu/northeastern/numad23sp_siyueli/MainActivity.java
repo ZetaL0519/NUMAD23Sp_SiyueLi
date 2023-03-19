@@ -1,12 +1,10 @@
 package edu.northeastern.numad23sp_siyueli;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button FindPrimeNumberBtn = (Button) findViewById(R.id.FindPrimeNumberButton);
         FindPrimeNumberBtn.setOnClickListener(view -> openFindPrimeNumber());
+
+        Button LocationBtn = findViewById(R.id.LocationSensingButton);
+        LocationBtn.setOnClickListener(view -> openLocationSensing());
     }
 
     public void openClickyClicky() {
@@ -49,4 +50,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openLocationSensing() {
+        Intent intent = new Intent(this, LocationSensingActivity.class);
+        startActivity(intent);
+    }
 }
