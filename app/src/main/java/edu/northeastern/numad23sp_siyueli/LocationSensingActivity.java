@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,32 +52,15 @@ public class LocationSensingActivity extends AppCompatActivity {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.high_acc_radio) {
-                    if (!isFineLocationPermissionGranted()) {
-                        ActivityCompat.requestPermissions(LocationSensingActivity.this,
-                                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                99);
-                    }
-                    mFusedLocationClient = null;
-                    locationRequest = createLocationRequest(LocationRequest.PRIORITY_HIGH_ACCURACY);
-                    mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
-                    getInitialLocationData();
-
-                }
-
-                if(checkedId == R.id.coarse_Acc_Radio) {
-                    mFusedLocationClient = null;
-                    locationRequest = createLocationRequest(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-                    mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
-                    getInitialLocationData();
-
-                }
-            }
-        });
+        if (!isFineLocationPermissionGranted()) {
+            ActivityCompat.requestPermissions(LocationSensingActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    99);
+        }
+        mFusedLocationClient = null;
+        locationRequest = createLocationRequest(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+        getInitialLocationData();
 
         Button resetDistanceButton = (Button) findViewById(R.id.reset_distance_button);
         resetDistanceButton.setOnClickListener(new View.OnClickListener() {
@@ -93,8 +75,6 @@ public class LocationSensingActivity extends AppCompatActivity {
             locationRequest = createLocationRequest(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
             getLocationData();
         }
-
-
     }
 
     private boolean isApproxLocationPermissionGranted() {
